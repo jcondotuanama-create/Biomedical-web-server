@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Target Consultation - Bioinformatics Platform</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 0; 
+            background-color: #f4f6f9;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #2c3e50;
+            font-size: 10pt;
+            line-height: 1.4;
+            display: block;
+            width: 297mm;
+            height: 210mm;
+            position: relative;
+        }
+
+        
+        .sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 65mm;
+            height: 210mm;
+            background-color: #ffffff;
+            border-right: 1px solid #e1e6eb;
+            padding: 20mm 6mm 10mm 6mm;
+            z-index: 10;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15mm;
+        }
+
+        .logo-icon {
+            font-size: 24pt;
+            color: #0077b6;
+            margin-bottom: 2mm;
+        }
+
+        .logo-text {
+            font-size: 11pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #002c54;
+        }
+        
+        .logo-subtext {
+            font-size: 8pt;
+            color: #6c757d;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin-top: 10mm;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 3.5mm 4mm;
+            margin-bottom: 2mm;
+            border-radius: 6px;
+            color: #495057;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 9.5pt;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item.active {
+            background-color: #e8f1f5;
+            color: #0077b6;
+            font-weight: bold;
+            border-left: 3px solid #0077b6;
+        }
+
+    
+        .main-content {
+            position: absolute;
+            top: 0;
+            left: 65mm;
+            width: 232mm;
+            height: 210mm;
+            padding: 15mm 15mm 10mm 15mm;
+            overflow: hidden;
+        }
+
+        
+        .header-section {
+            border-bottom: 2px solid #0077b6;
+            padding-bottom: 4mm;
+            margin-bottom: 6mm;
+        }
+
+        .user-badge {
+            font-size: 8.5pt;
+            color: #00a896;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1mm;
+        }
+
+        .main-title {
+            font-size: 16pt;
+            color: #002c54;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 10.5pt;
+            color: #4a5568;
+            margin-top: 1mm;
+        }
+        
+        .target-id {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e9ecef;
+            padding: 0.5mm 1.5mm;
+            border-radius: 4px;
+            color: #d63384;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        
+        .data-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e1e6eb;
+            padding: 5mm;
+            height: 135mm;
+            overflow: hidden;
+        }
+
+        .table-container {
+            width: 100%;
+            height: 125mm;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: #002c54;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 9.5pt;
+            padding: 3mm 4mm;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        th:first-child {
+            border-top-left-radius: 4px;
+            width: 30%;
+        }
+
+        th:last-child {
+            border-top-right-radius: 4px;
+            width: 70%;
+        }
+
+        td {
+            padding: 2.5mm 4mm;
+            border-bottom: 1px solid #eef2f5;
+            font-size: 9pt;
+            color: #333333;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        tr:hover td {
+            background-color: #f1f5f9;
+        }
+
+        
+        .phenotype-tag {
+            display: inline-block;
+            background-color: #eef2f7;
+            color: #475569;
+            padding: 0.6mm 2mm;
+            margin: 0.4mm;
+            border-radius: 4px;
+            font-size: 8pt;
+            border: 1px solid #cbd5e1;
+        }
+        
+        .phenotype-tag.highlight {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+
+        .footer-branding {
+            position: absolute;
+            bottom: 8mm;
+            right: 15mm;
+            left: 80mm;
+            display: block;
+            text-align: right;
+            border-top: 1px solid #e1e6eb;
+            padding-top: 3mm;
+        }
+
+        .footer-text {
+            font-size: 8pt;
+            color: #94a3b8;
+            display: inline-block;
+        }
+
+        .institutions {
+            font-weight: 600;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo-icon">🧬</div>
+            <div class="logo-text">Omics Research Lab</div>
+            <div class="logo-subtext">Biomedical Engineering Platform</div>
+        </div>
+        <ul class="nav-list">
+            <li><a href="/index.html" class="nav-item active">🔍 OpenTarget Search</a></li>
+            <li><a href="https://github.com/jcondotuanama-create/Proyecto-ECG.git" class="nav-item">📚 Publications</a></li>
+            <li><a href="/author" class="nav-item">👤 Author Profile</a></li>
+        </ul>
+    </div>
+
+    
+    <div class="main-content">
+    
+        <div class="header-section">
+            <div class="user-badge">King Juan Carlos University — Student: José María Condo Tuanama</div>
+            <div class="main-title">Consultation of {Id}</div>
+            <div class="subtitle">Data associated to: <span class="target-id">{Id}</span></div>
+        </div>
+
+        <div class="data-card">
+            <div class="table-container">
+                <table>
+                    {lines}
+                </table>
+            </div>
+        </div>
+        <p><a href='data:text/json;charset=utf-8,{json}' download= "{results.json}">Download results</a></p>
+        <div class="footer-branding">
+            <div class="footer-text">Data Sources: OpenTargets Platform | Powered by <span class="institutions">NCBI / NIH / EMBL-EBI</span></div>
+        </div>
+    </div>
+
+</body>
+</html>

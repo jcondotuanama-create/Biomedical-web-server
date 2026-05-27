@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Omics Research Lab - Results</title>
+    <style>
+        /* Estructura base de la aplicación de laboratorio */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #222222;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Separa barra lateral de contenido */
+            min-height: 100vh;
+        }
+
+        /* 1. BARRA LATERAL IZQUIERDA (Sidebar) */
+        .sidebar {
+            width: 240px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+        .logo-text {
+            font-weight: bold;
+            color: #004d7a;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+        .logo-subtext {
+            font-size: 0.75rem;
+            color: #777777;
+        }
+
+        /* Menú de navegación de la barra lateral */
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #555555;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .nav-item.active {
+            background-color: #e6f2fa;
+            color: #0071bc;
+            font-weight: bold;
+        }
+        .nav-item:hover:not(.active) {
+            background-color: #f0f4f8;
+            color: #111111;
+        }
+
+        /* 2. CONTENIDO PRINCIPAL (Derecha) */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: left; /* Alineado formal como en la foto */
+        }
+
+        /* Textos de cabecera académica */
+        .user-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00a896; /* Verde médico de la foto */
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .main-title {
+            font-size: 1.8rem;
+            color: #222222;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 0.95rem;
+            color: #666666;
+            margin: 0 0 25px 0;
+        }
+        .highlight-text {
+            color: #e24329; /* El texto rojo/rosa de los códigos buscados */
+            font-weight: bold;
+        }
+
+        /* 3. TARJETA BLANCA DE RESULTADOS (Data Card) */
+        .data-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        /* Tabla estilizada PubMed */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #003354; /* Azul oscuro premium de cabecera */
+            color: #ffffff;
+            padding: 14px 12px;
+            font-weight: bold;
+            text-align: left;
+            border: 1px solid #003354;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eef2f5;
+            color: #333333;
+            line-height: 1.5;
+        }
+        tr:nth-child(even) td {
+            background-color: #fcfdfe; /* Efecto cebra muy sutil */
+        }
+
+        /* Enlaces inferiores de descarga y créditos */
+        .actions-bar {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .btn-download {
+            color: #0071bc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-download:hover {
+            text-decoration: underline;
+        }
+        .credits {
+            color: #999999;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-container">
+            <div style="font-size: 1.6rem; color: #00a896;">🧬</div>
+            <div class="logo-text">OMICS RESEARCH LAB</div>
+            <div class="logo-subtext">Biomedical Engineering Platform</div>
+        </div>
+        
+        <ul class="nav-list">
+            <li><a href="/index.html" class="nav-item active">🔍 OpenTarget Search</a></li>
+            <li><a href="https://github.com/jcondotuanama-create/Proyecto-ECG.git" class="nav-item">📚 Publications</a></li>
+            <li><a href="/author" class="nav-item">👤 Author Profile</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="user-badge">KING JUAN CARLOS UNIVERSITY — STUDENT: JOSÉ MARÍA CONDO TUANAMA</div>
+        <h1 class="main-title">Diseases associated to target consultation</h1>
+        <p class="subtitle">Data associated to target: <span class="highlight-text">{id}</span></p>
+
+        <div class="data-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disease ID</th>
+                        <th>Disease name</th>
+                        <th>Phenotype objects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {lines}
+                </tbody>
+            </table>
+
+            <div class="actions-bar">
+                <a href='data:text/json;charset=utf-8,{json}' download="{results.json}" class="btn-download">⬇ Download results</a>
+                <span class="credits">Data Sources: OpenTargets Platform | Powered by NCBI / NIH / EMBL-EBI</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Omics Research Lab - Search Engine</title>
+    <style>
+        /* Estructura base idéntica al portal de las tablas */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #222222;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Crea el menú a la izquierda y contenido a la derecha */
+            min-height: 100vh;
+        }
+
+        /* 1. BARRA LATERAL IZQUIERDA (Sidebar) */
+        .sidebar {
+            width: 240px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            box-sizing: border-box;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+        .logo-text {
+            font-weight: bold;
+            color: #004d7a;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+        .logo-subtext {
+            font-size: 0.75rem;
+            color: #777777;
+        }
+
+        /* Menú de navegación lateral */
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #555555;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .nav-item.active {
+            background-color: #e6f2fa;
+            color: #0071bc;
+            font-weight: bold;
+        }
+        .nav-item:hover:not(.active) {
+            background-color: #f0f4f8;
+            color: #111111;
+        }
+
+        /* 2. PANEL DE CONTENIDO PRINCIPAL (Derecha) */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        /* Cabeceras de identificación institucional */
+        .user-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00a896; /* Verde médico */
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .main-title {
+            font-size: 1.8rem;
+            color: #222222;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 0.95rem;
+            color: #666666;
+            margin: 0 0 30px 0;
+        }
+
+        /* Títulos de los métodos de envío (GET / POST) */
+        .method-title {
+            font-size: 1.2rem;
+            color: #004d7a;
+            margin: 25px 0 10px 0;
+            font-weight: bold;
+            border-left: 4px solid #00a896;
+            padding-left: 10px;
+        }
+
+        /* 3. TARJETAS DE FORMULARIO (Estilizado de fieldset) */
+        fieldset {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        legend {
+            font-weight: bold;
+            color: #e24329; /* Color de realce para indicar zona de criterios */
+            padding: 0 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Estilos limpios para campos de entrada */
+        p {
+            margin: 0 0 18px 0;
+        }
+        p:last-of-type {
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 0.88rem;
+            color: #444444;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            max-width: 500px; /* Tamaño controlado para que no se deforme */
+            padding: 9px 12px;
+            box-sizing: border-box;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background-color: #fafafa;
+            transition: all 0.15s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #0071bc;
+            background-color: #ffffff;
+            outline: none;
+            box-shadow: 0 0 4px rgba(0, 113, 188, 0.15);
+        }
+
+        /* Contenedor y diseño de botones */
+        .actions-container {
+            margin-top: 20px;
+            padding-top: 10px;
+        }
+
+        button {
+            padding: 9px 20px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.1s;
+        }
+
+        button[type="submit"] {
+            background-color: #0071bc;
+            color: white;
+            border: 1px solid #005a96;
+        }
+        button[type="submit"]:hover {
+            background-color: #005a96;
+        }
+
+        button[type="reset"] {
+            background-color: #f4f6f8;
+            color: #555555;
+            border: 1px solid #cccccc;
+        }
+        button[type="reset"]:hover {
+            background-color: #eaf0f6;
+        }
+
+        /* Pie de página integrado discreto */
+        .footer-info {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px dashed #cccccc;
+            font-size: 0.75rem;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-container">
+            <div style="font-size: 1.6rem; color: #00a896;">🧬</div>
+            <div class="logo-text">OMICS RESEARCH LAB</div>
+            <div class="logo-subtext">Biomedical Engineering Platform</div>
+        </div>
+        
+        <ul class="nav-list">
+            <li><a href="/index.html" class="nav-item active">🔍 OpenTarget Search</a></li>
+            <li><a href="#" class="nav-item">📚 Publications</a></li>
+            <li><a href="/author" class="nav-item">👤 Author Profile</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="user-badge">KING JUAN CARLOS UNIVERSITY — STUDENT: JOSÉ MARÍA CONDO TUANAMA</div>
+        <h1 class="main-title">Targets and diseases consultation (OpenTargets)</h1>
+        <p class="subtitle">Introduce the search criteria to find the biomedical associations</p>
+
+        <div class="method-title">Search by GET method</div>
+        <form action="/results" method="GET">
+            <fieldset>
+                <legend>Search criteria</legend>
+                
+                <p>
+                    <label for="target_get">Target ID (Ensembl Gene ID):</label><br>
+                    <input type="text" id="target_get" name="target" placeholder="ej: ENSG00000139618">
+                </p>
+                
+                <p>
+                    <label for="disease_get">Disease ID (EFO ID):</label><br>
+                    <input type="text" id="disease_get" name="disease" placeholder="ej: EFO_0000616">
+                </p>
+                
+                <p>
+                    <label for="score_get">Score minimum (umbral):</label><br>
+                    <input type="number" id="score_get" name="score" step="0.1" min="0" max="1" value="0.0">
+                </p>
+                
+                <div class="actions-container">
+                    <button type="submit">Search asociaciones</button>
+                    <button type="reset">Clear the fields</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <div class="method-title">Search by POST method</div>
+        <form action="/results" method="POST">
+            <fieldset>
+                <legend>Search criteria</legend>
+                
+                <p>
+                    <label for="target_post">Target ID (Ensembl Gene ID):</label><br>
+                    <input type="text" id="target_post" name="target" placeholder="ej: ENSG00000139618">
+                </p>
+                
+                <p>
+                    <label for="disease_post">Disease ID (EFO ID):</label><br>
+                    <input type="text" id="disease_post" name="disease" placeholder="ej: EFO_0000616">
+                </p>
+                
+                <p>
+                    <label for="score_post">Score minimum (umbral):</label><br>
+                    <input type="number" id="score_post" name="score" step="0.1" min="0" max="1" value="0.0">
+                </p>
+                
+                <div class="actions-container">
+                    <button type="submit">Search asociaciones</button>
+                    <button type="reset">Clear the fields</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <div class="footer-info">
+            Plataforma desarrollada para la asignatura de Procesadores de la Información en la Biomedicina (PER).
+        </div>
+
+    </div>
+
+</body>
+</html>
