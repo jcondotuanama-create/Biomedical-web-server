@@ -3,8 +3,9 @@ from urllib.parse import urlparse
 from get_query import *
 from tables import *
 from error import *
-HOST_ADDRESS = "127.0.0.1"
-HOST_PORT = 21080
+import os
+HOST_ADDRESS = "0.0.0.0"
+HOST_PORT = int(os.environ.get("PORT", 21080))
 
 class RequestHandler(BaseHTTPRequestHandler):
     def set_response(self, code):
